@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 14-insert-default-department
+      author: Nuraiym
+      changes:
+        - insert:
+            tableName: departments
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: name, value: "Default Department" }
+              - column: { name: code, value: "DEF_DEPT" }
+
+  - changeSet:
+      id: 15-insert-default-position
+      author: Nuraiym
+      changes:
+        - insert:
+            tableName: positions
+            columns:
+              - column: { name: id, valueComputed: gen_random_uuid() }
+              - column: { name: name, value: "Default Position" }
+              - column: { name: code, value: "DEF_POS" }

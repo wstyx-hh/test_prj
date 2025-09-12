@@ -1,0 +1,253 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-departments
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: departments
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: code
+                  type: varchar(100)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: parent_id
+                  type: UUID
+                  constraints:
+                    nullable: true
+
+  - changeSet:
+      id: 2-create-positions
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: positions
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: code
+                  type: varchar(100)
+                  constraints:
+                    unique: true
+                    nullable: false
+
+  - changeSet:
+      id: 3-create-users
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: username
+                  type: varchar(100)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: active
+                  type: boolean
+                  defaultValue: "true"
+
+  - changeSet:
+      id: 4-create-employees
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: employees
+            columns:
+              - column: { name: id, type: UUID, defaultValueComputed: gen_random_uuid(), constraints: { primaryKey: true } }
+              - column: { name: fio, type: varchar(255), constraints: { nullable: false } }
+              - column: { name: iin, type: varchar(12), constraints: { unique: true, nullable: false } }
+              - column: { name: email, type: varchar(255), constraints: { unique: true } }
+              - column: { name: phone, type: varchar(50) }
+              - column: { name: birth_date, type: date }
+              - column: { name: employed_at, type: date }
+              - column: { name: terminated_at, type: date }
+              - column: { name: status, type: varchar(20) }
+              - column: { name: department_id, type: UUID }
+              - column: { name: position_id, type: UUID }
+              - column: { name: grade, type: varchar(50) }
+              - column: { name: employment_type, type: varchar(20) }
+              - column: { name: salary_base, type: numeric(15,2) }
+              - column: { name: salary_currency, type: varchar(10) }
+              - column: { name: work_schedule, type: varchar(100) }
+              - column: { name: manager_id, type: UUID }
+
+  - changeSet:
+      id: 5-create-contracts
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: contracts
+            columns:
+              - column: { name: id, type: UUID, defaultValueComputed: gen_random_uuid(), constraints: { primaryKey: true } }
+              - column: { name: employee_id, type: UUID }
+              - column: { name: number, type: varchar(100) }
+              - column: { name: signed_at, type: date }
+              - column: { name: effective_from, type: date }
+              - column: { name: effective_to, type: date }
+              - column: { name: salary, type: numeric(15,2) }
+              - column: { name: type, type: varchar(20) }
+              - column: { name: status, type: varchar(20) }
+              - column: { name: file_id, type: UUID }
+
+  - changeSet:
+      id: 6-create-orders
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column: { name: id, type: UUID, defaultValueComputed: gen_random_uuid(), constraints: { primaryKey: true } }
+              - column: { name: type, type: varchar(20) }
+              - column: { name: employee_id, type: UUID }
+              - column: { name: number, type: varchar(100) }
+              - column: { name: date, type: date }
+              - column: { name: status, type: varchar(20) }
+              - column: { name: payload, type: jsonb }
+              - column: { name: file_id, type: UUID }
+
+  - changeSet:
+      id: 7-create-resignation-requests
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: resignation_requests
+            columns:
+              - column: { name: id, type: UUID, defaultValueComputed: gen_random_uuid(), constraints: { primaryKey: true } }
+              - column: { name: employee_id, type: UUID }
+              - column: { name: requested_date, type: date }
+              - column: { name: reason, type: text }
+              - column: { name: status, type: varchar(20) }
+              - column: { name: file_id, type: UUID }
+
+  - changeSet:
+      id: 8-create-documents
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: documents
+            columns:
+              - column: { name: id, type: UUID, defaultValueComputed: gen_random_uuid(), constraints: { primaryKey: true } }
+              - column: { name: type, type: varchar(20) }
+              - column: { name: employee_id, type: UUID }
+              - column: { name: template_version_id, type: UUID }
+              - column: { name: number, type: varchar(100) }
+              - column: { name: date, type: date }
+              - column: { name: status, type: varchar(20) }
+              - column: { name: file_id, type: UUID }
+              - column: { name: meta, type: jsonb }
+
+  - changeSet:
+      id: 9-create-templates
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: templates
+            columns:
+              - column: { name: id, type: UUID, defaultValueComputed: gen_random_uuid(), constraints: { primaryKey: true } }
+              - column: { name: name, type: varchar(255) }
+              - column: { name: type, type: varchar(50) }
+              - column: { name: engine, type: varchar(10) }
+              - column: { name: body, type: text }
+              - column: { name: placeholders, type: jsonb }
+              - column: { name: version, type: int }
+              - column: { name: is_active, type: boolean }
+              - column: { name: created_by, type: UUID }
+              - column: { name: created_at, type: timestamp }
+
+  - changeSet:
+      id: 10-create-approvals
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: approvals
+            columns:
+              - column: { name: id, type: UUID, defaultValueComputed: gen_random_uuid(), constraints: { primaryKey: true } }
+              - column: { name: document_id, type: UUID }
+              - column: { name: step_index, type: int }
+              - column: { name: approver_id, type: UUID }
+              - column: { name: status, type: varchar(20) }
+              - column: { name: comment, type: text }
+              - column: { name: acted_at, type: timestamp }
+
+  - changeSet:
+      id: 11-create-file-storage
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: file_storage
+            columns:
+              - column: { name: id, type: UUID, defaultValueComputed: gen_random_uuid(), constraints: { primaryKey: true } }
+              - column: { name: filename, type: varchar(255) }
+              - column: { name: path, type: varchar(500) }
+              - column: { name: content_type, type: varchar(100) }
+              - column: { name: size, type: bigint }
+              - column: { name: checksum, type: varchar(64) }
+
+  - changeSet:
+      id: 12-create-audit-log
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: audit_log
+            columns:
+              - column: { name: id, type: UUID, defaultValueComputed: gen_random_uuid(), constraints: { primaryKey: true } }
+              - column: { name: ts, type: timestamp }
+              - column: { name: user, type: varchar(100) }
+              - column: { name: action, type: varchar(100) }
+              - column: { name: entity, type: varchar(100) }
+              - column: { name: entity_id, type: UUID }
+              - column: { name: data_diff, type: jsonb }
+
+  - changeSet:
+      id: 13-create-number-sequence
+      author: Nuraiym
+      changes:
+        - createTable:
+            tableName: number_sequence
+            columns:
+              - column: { name: id, type: UUID, defaultValueComputed: gen_random_uuid(), constraints: { primaryKey: true } }
+              - column: { name: doc_type, type: varchar(50) }
+              - column: { name: pattern, type: varchar(100) }
+              - column: { name: last_value, type: int }

@@ -1,0 +1,26 @@
+spring:
+  security:
+    user:
+      name: admin
+      password: secret123
+      roles: ADMIN
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hrm_system
+    username: postgres
+    password: sestruha
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+
+  liquibase:
+    enabled: false
+  # change-log: classpath:/db/changelog/master.yaml
+
+server:
+  port: 8080

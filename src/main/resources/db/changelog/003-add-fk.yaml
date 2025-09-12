@@ -1,0 +1,183 @@
+databaseChangeLog:
+
+  - changeSet:
+      id: fk-employees-department
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: employees
+            baseColumnNames: department_id
+            referencedTableName: departments
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_employees_department
+
+  - changeSet:
+      id: fk-employees-position
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: employees
+            baseColumnNames: position_id
+            referencedTableName: positions
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_employees_position
+
+  - changeSet:
+      id: fk-employees-manager
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: employees
+            baseColumnNames: manager_id
+            referencedTableName: employees
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_employees_manager
+
+  - changeSet:
+      id: fk-contracts-employee
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: contracts
+            baseColumnNames: employee_id
+            referencedTableName: employees
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_contracts_employee
+
+  - changeSet:
+      id: fk-contracts-file
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: contracts
+            baseColumnNames: file_id
+            referencedTableName: file_storage
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_contracts_file
+
+  - changeSet:
+      id: fk-orders-employee
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: orders
+            baseColumnNames: employee_id
+            referencedTableName: employees
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_orders_employee
+
+  - changeSet:
+      id: fk-orders-file
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: orders
+            baseColumnNames: file_id
+            referencedTableName: file_storage
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_orders_file
+
+  - changeSet:
+      id: fk-resignation-employee
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: resignation_requests
+            baseColumnNames: employee_id
+            referencedTableName: employees
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_resignation_employee
+
+  - changeSet:
+      id: fk-resignation-file
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: resignation_requests
+            baseColumnNames: file_id
+            referencedTableName: file_storage
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_resignation_file
+
+  - changeSet:
+      id: fk-documents-employee
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: documents
+            baseColumnNames: employee_id
+            referencedTableName: employees
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_documents_employee
+
+  - changeSet:
+      id: fk-documents-template
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: documents
+            baseColumnNames: template_version_id
+            referencedTableName: templates
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_documents_template
+
+  - changeSet:
+      id: fk-documents-file
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: documents
+            baseColumnNames: file_id
+            referencedTableName: file_storage
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_documents_file
+
+  - changeSet:
+      id: fk-approvals-document
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: approvals
+            baseColumnNames: document_id
+            referencedTableName: documents
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_approvals_document
+
+  - changeSet:
+      id: fk-approvals-approver
+      author: Nuraiym
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: approvals
+            baseColumnNames: approver_id
+            referencedTableName: employees
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_approvals_approver
