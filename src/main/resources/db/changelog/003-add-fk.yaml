@@ -1,6 +1,19 @@
 databaseChangeLog:
 
   - changeSet:
+      id: fk-departments-parent
+      author: assistant
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: departments
+            baseColumnNames: parent_id
+            referencedTableName: departments
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+            constraintName: fk_departments_parent
+
+  - changeSet:
       id: fk-employees-department
       author: Nuraiym
       changes:
@@ -181,3 +194,40 @@ databaseChangeLog:
             onDelete: SET NULL
             onUpdate: CASCADE
             constraintName: fk_approvals_approver
+
+  - changeSet:
+      id: idx-employees-fks
+      author: assistant
+      changes:
+        - createIndex:
+            tableName: employees
+            indexName: idx_employees_department_id
+            columns:
+              - column:
+                  name: department_id
+        - createIndex:
+            tableName: employees
+            indexName: idx_employees_position_id
+            columns:
+              - column:
+                  name: position_id
+        - createIndex:
+            tableName: employees
+            indexName: idx_employees_manager_id
+            columns:
+              - column:
+                  name: manager_id
+
+  - changeSet:
+      id: chk-employees-enums
+      author: assistant
+      changes:
+        - sql:
+            sql: ALTER TABLE employees
+              ADD CONSTRAINT chk_employees_status
+              CHECK (status IN ('ACTIVE','ON_LEAVE','TERMINATED') OR status IS NULL);
+
+        - sql:
+            sql: ALTER TABLE employees
+              ADD CONSTRAINT chk_employees_employment_type
+              CHECK (employment_type IN ('FULL','PART') OR employment_type IS NULL);

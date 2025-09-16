@@ -1,4 +1,4 @@
-/*package org.example.entity;
+package org.example.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,4 +30,3 @@ public class User {
 
     private boolean active = true;
 }
-*/

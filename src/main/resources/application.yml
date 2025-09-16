@@ -1,26 +1,24 @@
 spring:
-  security:
-    user:
-      name: admin
-      password: secret123
-      roles: ADMIN
-
   datasource:
     url: jdbc:postgresql://localhost:5432/hrm_system
     username: postgres
     password: sestruha
     driver-class-name: org.postgresql.Driver
 
+  app:
+    jwt:
+      secret: super-secret-key-should-be-longer-than-32chars
+
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate.format_sql: true
 
   liquibase:
-    enabled: false
-  # change-log: classpath:/db/changelog/master.yaml
+    enabled: true
+    change-log: classpath:/db/changelog/master.yaml
 
 server:
   port: 8080

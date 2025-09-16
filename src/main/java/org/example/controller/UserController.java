@@ -1,4 +1,4 @@
-/*package org.example.controller;
+package org.example.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.entity.Role;
@@ -35,4 +35,3 @@ public class UserController {
         return userRepository.findAll();
     }
 }
-*/
